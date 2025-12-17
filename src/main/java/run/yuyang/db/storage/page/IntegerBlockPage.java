@@ -1,11 +1,12 @@
 package run.yuyang.db.storage.page;
 
-import javafx.util.Pair;
 import run.yuyang.db.util.ConvertUtils;
 
 import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.AbstractMap;
+import java.util.Map;
 
 import static run.yuyang.db.util.Config.PAGE_SIZE;
 import static run.yuyang.db.util.ConvertUtils.intToBytes;
@@ -28,12 +29,12 @@ public class IntegerBlockPage implements Pageable {
 
     private final byte[] occupied;
     private final byte[] readable;
-    private final Pair<Integer, Integer>[] list;
+    private final Map.Entry<Integer, Integer>[] list;
 
     public IntegerBlockPage() {
         occupied = new byte[(BLOCK_ARRAY_SIZE - 1) / 8 + 1];
         readable = new byte[(BLOCK_ARRAY_SIZE - 1) / 8 + 1];
-        list = new Pair[BLOCK_ARRAY_SIZE];
+        list = new Map.Entry[BLOCK_ARRAY_SIZE];
     }
 
     public Integer keyAt(int bucket_ind) throws RuntimeException {
@@ -54,7 +55,7 @@ public class IntegerBlockPage implements Pageable {
         if (isReadable(bucket_ind)) {
             return false;
         }
-        list[bucket_ind] = new Pair<>(key, value);
+        list[bucket_ind] = new AbstractMap.SimpleImmutableEntry<>(key, value);
         int offset = bucket_ind / 8;
         readable[offset] = (byte) (readable[offset] | (1 << (bucket_ind % 8)));
         occupied[offset] = (byte) (occupied[offset] | (1 << (bucket_ind % 8)));
@@ -88,8 +89,8 @@ public class IntegerBlockPage implements Pageable {
         for (byte b : occupied) {
             bytes[index++] = b;
         }
-        for (Pair<Integer, Integer> integerIntegerPair : list) {
-            if (integerIntegerPair == null) {
+        for (Map.Entry<Integer, Integer> entry : list) {
+            if (entry == null) {
                 bytes[index++] = 0;
                 bytes[index++] = 0;
                 bytes[index++] = 0;
@@ -99,12 +100,12 @@ public class IntegerBlockPage implements Pageable {
                 bytes[index++] = 0;
                 bytes[index++] = 0;
             }else{
-                byte[] temp = intToBytes(integerIntegerPair.getKey());
+                byte[] temp = intToBytes(entry.getKey());
                 bytes[index++] = temp[0];
                 bytes[index++] = temp[1];
                 bytes[index++] = temp[2];
                 bytes[index++] = temp[3];
-                temp = intToBytes(integerIntegerPair.getValue());
+                temp = intToBytes(entry.getValue());
                 bytes[index++] = temp[0];
                 bytes[index++] = temp[1];
                 bytes[index++] = temp[2];
