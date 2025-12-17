@@ -56,14 +56,14 @@ public class HashTableHeaderPage implements Pageable {
 
     public void addBlockPageIds(int pageId) throws RuntimeException {
         if (index == size) {
-            throw new RuntimeException("Êý¾Ý¿âÒÑÂú");
+            throw new RuntimeException("æ•°æ®åº“å·²æ»¡");
         }
         blockPageIds[index++] = pageId;
     }
 
     public int getBlockPageIds(int size) throws RuntimeException {
         if (index > size) {
-            throw new RuntimeException("³¬³öÊý×éË÷Òý·¶Î§");
+            throw new RuntimeException("è¶…å‡ºæ•°ç»„ç´¢å¼•èŒƒå›´");
         }
         return this.blockPageIds[index];
     }
@@ -72,22 +72,22 @@ public class HashTableHeaderPage implements Pageable {
     public byte[] convertTo() {
         byte[] bytes = new byte[PAGE_SIZE];
         int index = 0;
-        // ×ª»¯lsn
+        // è½¬åŒ–lsn
         byte[] temp = intToBytes(lsn);
         for (int i = 0; i < 4; i++) {
             bytes[index++] = temp[i];
         }
-        //×ª»¯size
+        //è½¬åŒ–size
         temp = intToBytes(size);
         for (int i = 0; i < 4; i++) {
             bytes[index++] = temp[i];
         }
-        //×ª»¯pageId
+        //è½¬åŒ–pageId
         temp = intToBytes(pageId);
         for (int i = 0; i < 4; i++) {
             bytes[index++] = temp[i];
         }
-        //×ª»¯index
+        //è½¬åŒ–index
         temp = intToBytes(index);
         for (int i = 0; i < 4; i++) {
             bytes[index++] = temp[i];

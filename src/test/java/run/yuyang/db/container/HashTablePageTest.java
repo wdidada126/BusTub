@@ -23,7 +23,7 @@ public class HashTablePageTest extends TestCase {
         HashTableHeaderPage headerPage = new HashTableHeaderPage();
         page0.setData(headerPage);
 
-        // ÉèÖÃÒ»Ğ©×Ö¶Î
+        // è®¾ç½®ä¸€äº›å­—æ®µ
         for (int i = 0; i < 11; i++) {
             headerPage.setLsn(i);
             assertEquals(headerPage.getLsn(), i);
@@ -33,12 +33,12 @@ public class HashTablePageTest extends TestCase {
             assertEquals(headerPage.getSize(), i);
         }
 
-        //Ìí¼ÓÒ»Ğ©ĞéÄâµÄblock pages
+        //æ·»åŠ ä¸€äº›è™šæ‹Ÿçš„block pages
         for (int i = 0; i < 10; i++) {
             headerPage.addBlockPageIds(i);
             assertEquals(i + 1, headerPage.numBlocks());
         }
-        // Ê¹ÓÃ½áÊø
+        // ä½¿ç”¨ç»“æŸ
         log.debug("id: {}", page0.getPageId());
         log.debug("data : {}", page0.getData());
         poolManager.unpinPageImpl(page0.getPageId(), true);
@@ -53,25 +53,25 @@ public class HashTablePageTest extends TestCase {
 
         IntegerBlockPage blockPage = new IntegerBlockPage();
 
-        //²åÈëÒ»Ğ©key value¶Ô
+        //æ’å…¥ä¸€äº›key valueå¯¹
         for (int i = 9; i >=0 ; i--) {
             blockPage.insert(i, i, i);
         }
 
-        //¼ì²é²åÈëµÄkey value¶Ô
+        //æ£€æŸ¥æ’å…¥çš„key valueå¯¹
         for (int i = 0; i < 10; i++) {
             assertEquals(i, blockPage.keyAt(i).intValue());
             assertEquals(i, blockPage.valueAt(i).intValue());
         }
 
-        //ÒÆ³ıÒ»Ğ©key value¶Ô
+        //ç§»é™¤ä¸€äº›key valueå¯¹
         for (int i = 0; i < 10; i++) {
             if (i % 2 == 1) {
                 blockPage.remove(i);
             }
         }
 
-        //¼ì²éflag
+        //æ£€æŸ¥flag
         for (int i = 0; i < 15; i++) {
             if (i < 10) {
                 assertTrue(blockPage.isOccupied(i));

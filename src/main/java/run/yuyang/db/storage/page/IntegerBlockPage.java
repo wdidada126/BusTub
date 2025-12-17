@@ -11,16 +11,16 @@ import static run.yuyang.db.util.Config.PAGE_SIZE;
 import static run.yuyang.db.util.ConvertUtils.intToBytes;
 
 /**
- * Í¬Ê±´æ´¢keyºÍvalueÔÚblock page£¬Í¬Ê±Ö§³Önon-unique keys
+ * åŒæ—¶å­˜å‚¨keyå’Œvalueåœ¨block pageï¼ŒåŒæ—¶æ”¯æŒnon-unique keys
  * <p>
  * Block page format (keys are stored in order):
  * ----------------------------------------------------------------
  * | KEY(1) + VALUE(1) | KEY(2) + VALUE(2) | ... | KEY(n) + VALUE(n)
  * ----------------------------------------------------------------
  * <p>
- * ÕâÀïµÄ '+' ÒâÎ¶×ÅÒ»×é.
+ * è¿™é‡Œçš„ '+' æ„å‘³ç€ä¸€ç»„.
  * <p>
- * ÏÈÁôÒ»¸ö¿Ó£¬ÔİÊ±ÎŞ·¨ÊµÏÖPageable
+ * å…ˆç•™ä¸€ä¸ªå‘ï¼Œæš‚æ—¶æ— æ³•å®ç°Pageable
  */
 public class IntegerBlockPage implements Pageable {
 

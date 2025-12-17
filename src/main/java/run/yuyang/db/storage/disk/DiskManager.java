@@ -21,9 +21,9 @@ public class DiskManager {
     private boolean flushLogFlag = false;
 
     /**
-     * ¹¹ÔìÆ÷ £º ´ò¿ª/´´½¨µ¥¸öÊı¾İ¿âÎÄ¼şºÍÈÕÖ¾ÎÄ¼ş
+     * æ„é€ å™¨ ï¼š æ‰“å¼€/åˆ›å»ºå•ä¸ªæ•°æ®åº“æ–‡ä»¶å’Œæ—¥å¿—æ–‡ä»¶
      *
-     * @param db Êı¾İ¿âÎÄ¼şÃû
+     * @param db æ•°æ®åº“æ–‡ä»¶å
      */
     public DiskManager(String db) {
         fileName = db;
@@ -60,7 +60,7 @@ public class DiskManager {
     }
 
     /**
-     * ¹Ø±ÕËùÓĞÎÄ¼ş
+     * å…³é—­æ‰€æœ‰æ–‡ä»¶
      *
      * @throws Throwable
      */
@@ -73,7 +73,7 @@ public class DiskManager {
     }
 
     /**
-     * ½«Ö¸¶¨Ò³ÃæµÄÄÚÈİĞ´Èë´ÅÅÌÎÄ¼ş
+     * å°†æŒ‡å®šé¡µé¢çš„å†…å®¹å†™å…¥ç£ç›˜æ–‡ä»¶
      */
     public void writePage(int pageId, byte[] data) {
         try {
@@ -86,7 +86,7 @@ public class DiskManager {
     }
 
     /**
-     * ½«Ö¸¶¨Ò³ÃæµÄÄÚÈİ¶ÁÈë¸ø¶¨µÄ´æ´¢Çø
+     * å°†æŒ‡å®šé¡µé¢çš„å†…å®¹è¯»å…¥ç»™å®šçš„å­˜å‚¨åŒº
      */
     public void readPage(int pageId, byte[] data) {
         int offset = pageId * PAGE_SIZE;
@@ -103,8 +103,8 @@ public class DiskManager {
     }
 
     /**
-     * ½«ÈÕÖ¾ÄÚÈİĞ´Èë´ÅÅÌÎÄ¼ş
-     * ½öÔÚÍ¬²½Íê³Éºó·µ»Ø£¬²¢ÇÒ½öÖ´ĞĞĞòÁĞĞ´Èë
+     * å°†æ—¥å¿—å†…å®¹å†™å…¥ç£ç›˜æ–‡ä»¶
+     * ä»…åœ¨åŒæ­¥å®Œæˆåè¿”å›ï¼Œå¹¶ä¸”ä»…æ‰§è¡Œåºåˆ—å†™å…¥
      */
     public void writeLog(byte[] logData, int size) {
 
@@ -124,10 +124,10 @@ public class DiskManager {
 
 
     /**
-     * ½«ÈÕÖ¾ÄÚÈİ¶ÁÈë¸ø¶¨µÄ´æ´¢Çø
-     * Ê¼ÖÕ´ÓÍ·¿ªÊ¼¶ÁÈ¡²¢Ö´ĞĞË³Ğò¶ÁÈ¡
+     * å°†æ—¥å¿—å†…å®¹è¯»å…¥ç»™å®šçš„å­˜å‚¨åŒº
+     * å§‹ç»ˆä»å¤´å¼€å§‹è¯»å–å¹¶æ‰§è¡Œé¡ºåºè¯»å–
      *
-     * @return: false±íÊ¾ÒÑ¾­½áÊø
+     * @return: falseè¡¨ç¤ºå·²ç»ç»“æŸ
      */
     public boolean readLog(byte[] logData, int size, int offset) {
         if (offset >= getFileSize(logName)) {
@@ -144,29 +144,29 @@ public class DiskManager {
 
 
     /**
-     * ·ÖÅäĞÂÒ³Ãæ£¨ÖîÈç´´½¨Ë÷Òı/±íÖ®ÀàµÄ²Ù×÷£©
-     * ±£Ö¤page idÔö³¤
+     * åˆ†é…æ–°é¡µé¢ï¼ˆè¯¸å¦‚åˆ›å»ºç´¢å¼•/è¡¨ä¹‹ç±»çš„æ“ä½œï¼‰
+     * ä¿è¯page idå¢é•¿
      */
     public int allocatePage() {
         return nextPageId++;
     }
 
     /**
-     * ·µ»Øµ½Ä¿Ç°ÎªÖ¹½øĞĞµÄFlush´ÎÊı
+     * è¿”å›åˆ°ç›®å‰ä¸ºæ­¢è¿›è¡Œçš„Flushæ¬¡æ•°
      */
     public int getNumFlushes() {
         return numFlushes;
     }
 
     /**
-     * ·µ»Øµ½Ä¿Ç°ÎªÖ¹½øĞĞµÄWrite´ÎÊı
+     * è¿”å›åˆ°ç›®å‰ä¸ºæ­¢è¿›è¡Œçš„Writeæ¬¡æ•°
      */
     public int getNumWrites() {
         return numWrites;
     }
 
     /**
-     * Èç¹ûµ±Ç°ÕıÔÚË¢ĞÂÈÕÖ¾£¬Ôò·µ»Øtrue
+     * å¦‚æœå½“å‰æ­£åœ¨åˆ·æ–°æ—¥å¿—ï¼Œåˆ™è¿”å›true
      */
     public boolean getFlushState(){
         return flushLogFlag;
@@ -174,7 +174,7 @@ public class DiskManager {
 
 
     /**
-     * »ñÈ¡ÎÄ¼ş×Ö½ÚÊı
+     * è·å–æ–‡ä»¶å­—èŠ‚æ•°
      */
     private long getFileSize(String fileName) {
         File file = new File(fileName);

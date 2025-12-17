@@ -14,7 +14,7 @@ public class DiskManagerTest extends TestCase {
     public void testPage() {
         DiskManager diskManager = new DiskManager("1.db");
         byte[] tempData = new byte[1024 * 2];
-        /*向page0 -2 写入数据*/
+        /*鍚憄age0 -2 鍐欏叆鏁版嵁*/
         Arrays.fill(tempData, (byte) 0);
         diskManager.writePage(diskManager.allocatePage(), tempData);
         Arrays.fill(tempData, (byte) 1);
@@ -22,19 +22,19 @@ public class DiskManagerTest extends TestCase {
         Arrays.fill(tempData, (byte) 2);
         diskManager.writePage(diskManager.allocatePage(), tempData);
 
-        /*读取page 1中的数据*/
+        /*璇诲彇page 1涓殑鏁版嵁*/
         diskManager.readPage(1, tempData);
         assertEquals(tempData.length, 1024 * 2);
         log.debug("{}", tempData);
 
-        /*向page 5写入数据*/
+        /*鍚憄age 5鍐欏叆鏁版嵁*/
         Arrays.fill(tempData, (byte) 5);
         diskManager.writePage(5, tempData);
         diskManager.readPage(5, tempData);
         assertEquals(tempData.length, 1024 * 2);
         log.debug("{}", tempData);
 
-        /*读取page 6数据*/
+        /*璇诲彇page 6鏁版嵁*/
         diskManager.readPage(6, tempData);
         log.debug("{}", tempData);
         File file = new File("1.db");

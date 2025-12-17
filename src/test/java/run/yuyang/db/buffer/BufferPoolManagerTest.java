@@ -20,37 +20,37 @@ public class BufferPoolManagerTest extends TestCase {
         DiskManager diskManager = new DiskManager(dbName);
         BufferPoolManager bufferPoolManager = new BufferPoolManager(diskManager, null, bufferpoolSize);
 
-        // ³¡¾°£º»º³å³ØÎª¿Õ¡£ÎÒÃÇÓ¦¸ÃÄÜ¹»´´½¨Ò»¸öĞÂÒ³Ãæ¡£
+        // åœºæ™¯ï¼šç¼“å†²æ± ä¸ºç©ºã€‚æˆ‘ä»¬åº”è¯¥èƒ½å¤Ÿåˆ›å»ºä¸€ä¸ªæ–°é¡µé¢ã€‚
         Page page0 = bufferPoolManager.newPageImpl();
         assertNotNull(page0);
         assertEquals(page0.getPageId(), 0);
 
-        // Éú³ÉËæ»ú¶ş½øÖÆÊı¾İ
+        // ç”ŸæˆéšæœºäºŒè¿›åˆ¶æ•°æ®
         byte[] randomBinaryData = new byte[PAGE_SIZE];
         Random random = new Random();
         random.nextBytes(randomBinaryData);
 
-        // ÔÚÖĞ¼äºÍ½áÎ²²åÈëÖÕ¶Ë×Ö·û
+        // åœ¨ä¸­é—´å’Œç»“å°¾æ’å…¥ç»ˆç«¯å­—ç¬¦
         randomBinaryData[PAGE_SIZE / 2] = '\0';
         randomBinaryData[PAGE_SIZE - 1] = '\0';
 
-        // ³¡¾°£ºÓĞÁËÒ³Ãæºó£¬ÎÒÃÇÓ¦¸ÃÄÜ¹»¶ÁĞ´ÄÚÈİ¡£
+        // åœºæ™¯ï¼šæœ‰äº†é¡µé¢åï¼Œæˆ‘ä»¬åº”è¯¥èƒ½å¤Ÿè¯»å†™å†…å®¹ã€‚
         page0.setData(randomBinaryData);
         for (int i = 0; i < PAGE_SIZE; i++) {
             assertEquals(page0.getData()[i], randomBinaryData[i]);
         }
-        // ³¡¾°£ºÔÚÌî³ä»º³å³ØÖ®Ç°£¬ÎÒÃÇÓ¦¸ÃÄÜ¹»´´½¨ĞÂÒ³Ãæ¡£
+        // åœºæ™¯ï¼šåœ¨å¡«å……ç¼“å†²æ± ä¹‹å‰ï¼Œæˆ‘ä»¬åº”è¯¥èƒ½å¤Ÿåˆ›å»ºæ–°é¡µé¢ã€‚
         for (int i = 1; i < bufferpoolSize; ++i) {
             assertNotNull(bufferPoolManager.newPageImpl());
         }
 
-        // ³¡¾°£ºÒ»µ©»º³å³ØÒÑÂú£¬ÎÒÃÇ¾Í²»ÄÜ´´½¨ÈÎºÎĞÂÒ³Ãæ¡£
+        // åœºæ™¯ï¼šä¸€æ—¦ç¼“å†²æ± å·²æ»¡ï¼Œæˆ‘ä»¬å°±ä¸èƒ½åˆ›å»ºä»»ä½•æ–°é¡µé¢ã€‚
         for (int i = bufferpoolSize; i < bufferpoolSize * 2; ++i) {
             assertNull(bufferPoolManager.newPageImpl());
         }
 
-        // ³¡¾°£ºÈ¡Ïû¹Ì¶¨Ò³Ãæ{0£¬1£¬2£¬3£¬4}²¢¹Ì¶¨ÁíÍâ5¸öĞÂÒ³Ãæºó£¬
-        // ÈÔÈ»ÓĞÒ»¸ö»º´æÖ¡¿ÉÒÔ¶ÁÈ¡µÚ0Ò³¡£
+        // åœºæ™¯ï¼šå–æ¶ˆå›ºå®šé¡µé¢{0ï¼Œ1ï¼Œ2ï¼Œ3ï¼Œ4}å¹¶å›ºå®šå¦å¤–5ä¸ªæ–°é¡µé¢åï¼Œ
+        // ä»ç„¶æœ‰ä¸€ä¸ªç¼“å­˜å¸§å¯ä»¥è¯»å–ç¬¬0é¡µã€‚
         for (int i = 0; i < 5; ++i) {
             assertEquals(true, bufferPoolManager.unpinPageImpl(i, true));
             bufferPoolManager.flushPageImpl(i);
@@ -62,7 +62,7 @@ public class BufferPoolManagerTest extends TestCase {
             bufferPoolManager.unpinPageImpl(page.getPageId(), false);
         }
 
-        //³¡¾°£ºÎÒÃÇÓ¦¸ÃÄÜ¹»»ñÈ¡ÎÒÃÇÖ®Ç°±àĞ´µÄÊı¾İ¡£
+        //åœºæ™¯ï¼šæˆ‘ä»¬åº”è¯¥èƒ½å¤Ÿè·å–æˆ‘ä»¬ä¹‹å‰ç¼–å†™çš„æ•°æ®ã€‚
         page0 = bufferPoolManager.fetchPageImpl(0);
         for (int i = 0; i < PAGE_SIZE; i++) {
             assertEquals(page0.getData()[i], randomBinaryData[i]);

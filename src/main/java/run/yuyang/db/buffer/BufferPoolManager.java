@@ -36,10 +36,10 @@ public class BufferPoolManager {
     }
 
     /**
-     * ´Ó»º³å³ØÖĞ»ñÈ¡ÇëÇóµÄÒ³Ãæ
+     * ä»ç¼“å†²æ± ä¸­è·å–è¯·æ±‚çš„é¡µé¢
      *
-     * @param pageId Ò³Ãæid
-     * @return ¶ÔÓ¦µÄpage
+     * @param pageId é¡µé¢id
+     * @return å¯¹åº”çš„page
      */
     public Page fetchPageImpl(int pageId) {
 
@@ -76,11 +76,11 @@ public class BufferPoolManager {
 
 
     /**
-     * È¡ÏûÖ¸¶¨Ò³ÃæpageµÄ¹Ì¶¨
+     * å–æ¶ˆæŒ‡å®šé¡µé¢pageçš„å›ºå®š
      *
-     * @param pageId  page_idÒªÈ¡Ïû¹Ì¶¨µÄÒ³ÃæµÄID
-     * @param isDirty is_dirtyÈç¹ûÒ³ÃæÓ¦±ê¼ÇÎªÔà£¬ÔòÎªtrue£¬·ñÔòÎªfalse
-     * @return Èç¹ûÔÚ´Ëµ÷ÓÃÖ®Ç°Ò³Ãæ¹Ì¶¨¼ÆÊı<= 0 £¬ Ôò·µ»Øfalse £¬ ·ñÔò·µ»Øtrue
+     * @param pageId  page_idè¦å–æ¶ˆå›ºå®šçš„é¡µé¢çš„ID
+     * @param isDirty is_dirtyå¦‚æœé¡µé¢åº”æ ‡è®°ä¸ºè„ï¼Œåˆ™ä¸ºtrueï¼Œå¦åˆ™ä¸ºfalse
+     * @return å¦‚æœåœ¨æ­¤è°ƒç”¨ä¹‹å‰é¡µé¢å›ºå®šè®¡æ•°<= 0 ï¼Œ åˆ™è¿”å›false ï¼Œ å¦åˆ™è¿”å›true
      */
     public boolean unpinPageImpl(int pageId, boolean isDirty) {
 
@@ -100,10 +100,10 @@ public class BufferPoolManager {
     }
 
     /**
-     * ½«Ä¿±êÒ³ÃæË¢ĞÂµ½´ÅÅÌ¡£
+     * å°†ç›®æ ‡é¡µé¢åˆ·æ–°åˆ°ç£ç›˜ã€‚
      *
-     * @param pageId page_idÒªË¢ĞÂµÄÒ³ÃæµÄID£¬²»ÄÜÎªINVALID_PAGE_ID
-     * @return Èç¹ûÔÚÒ³Ãæ±íÖĞÕÒ²»µ½¸ÃÒ³Ãæ£¬Ôò·µ»Øfalse£¬·ñÔò·µ»Øtrue
+     * @param pageId page_idè¦åˆ·æ–°çš„é¡µé¢çš„IDï¼Œä¸èƒ½ä¸ºINVALID_PAGE_ID
+     * @return å¦‚æœåœ¨é¡µé¢è¡¨ä¸­æ‰¾ä¸åˆ°è¯¥é¡µé¢ï¼Œåˆ™è¿”å›falseï¼Œå¦åˆ™è¿”å›true
      */
     public boolean flushPageImpl(int pageId) {
         if (map.containsKey(pageId) && pages[map.get(pageId)].isDirty()) {
@@ -115,9 +115,9 @@ public class BufferPoolManager {
     }
 
     /**
-     * ÔÚbuffer poolÖĞ´´½¨Ò»¸öĞÂµÄpage
+     * åœ¨buffer poolä¸­åˆ›å»ºä¸€ä¸ªæ–°çš„page
      *
-     * @return ĞÂµÄpage
+     * @return æ–°çš„page
      */
     public Page newPageImpl() {
 
@@ -146,10 +146,10 @@ public class BufferPoolManager {
     }
 
     /**
-     * ´Ó»º³å³ØÖĞÉ¾³ıÒ³Ãæ
+     * ä»ç¼“å†²æ± ä¸­åˆ é™¤é¡µé¢
      *
-     * @param pageId page_idÒªÉ¾³ıµÄÒ³ÃæµÄID
-     * @return Èç¹û¸ÃÒ³Ãæ´æÔÚµ«ÎŞ·¨É¾³ı£¬Ôò·µ»Øfalse£»Èç¹û¸ÃÒ³Ãæ²»´æÔÚ»òÉ¾³ı³É¹¦£¬Ôò·µ»Øtrue
+     * @param pageId page_idè¦åˆ é™¤çš„é¡µé¢çš„ID
+     * @return å¦‚æœè¯¥é¡µé¢å­˜åœ¨ä½†æ— æ³•åˆ é™¤ï¼Œåˆ™è¿”å›falseï¼›å¦‚æœè¯¥é¡µé¢ä¸å­˜åœ¨æˆ–åˆ é™¤æˆåŠŸï¼Œåˆ™è¿”å›true
      */
     public boolean deletePageImpl(int pageId) {
         diskManager.deallocatePage(pageId);
@@ -166,7 +166,7 @@ public class BufferPoolManager {
     }
 
     /**
-     * ½«»º³å³ØÖĞµÄËùÓĞÒ³ÃæË¢ĞÂµ½´ÅÅÌ¡£
+     * å°†ç¼“å†²æ± ä¸­çš„æ‰€æœ‰é¡µé¢åˆ·æ–°åˆ°ç£ç›˜ã€‚
      */
     public void flushAllPagesImpl() {
         for (Integer integer : map.keySet()) {

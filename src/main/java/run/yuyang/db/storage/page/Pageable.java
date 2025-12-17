@@ -3,7 +3,7 @@ package run.yuyang.db.storage.page;
 public interface Pageable {
 
     /**
-     * 转化出的byte数组大小需为PAGE_SIZE
+     * 杞寲鍑虹殑byte鏁扮粍澶у皬闇�涓篜AGE_SIZE
      */
     byte[] convertTo();
 
