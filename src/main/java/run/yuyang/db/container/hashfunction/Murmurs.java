@@ -6,7 +6,7 @@ import java.nio.ByteOrder;
 public class Murmurs {
 
     /**
-     * murmur hash�㷨ʵ��
+     * murmur hash算法实现
      */
     public static Long hash(byte[] key) {
 

@@ -3,39 +3,39 @@ package run.yuyang.db.buffer;
 /**
  * @author YuYang
  * <p>
- * Buffer pool Ìæ»»Æ÷
+ * Buffer pool æ›¿æ¢å™¨
  */
 public interface Replacer {
 
 
     /**
-     * Ñ°ÕÒ¿ÉÒÔÒÆ³ıµÄÎşÉüframe id
+     * å¯»æ‰¾å¯ä»¥ç§»é™¤çš„ç‰ºç‰²frame id
      *
-     * @return ¿ÉÒÔÒÆ³ıµÄframe id£¬ÈôÃ»ÓĞÔò·µ»Ø -1
+     * @return å¯ä»¥ç§»é™¤çš„frame idï¼Œè‹¥æ²¡æœ‰åˆ™è¿”å› -1
      */
     int victim();
 
 
     /**
-     * ¹Ì¶¨Ò»¸öframe£¬È·¶¨Ëû²»»á±»ÒÆ³ı
+     * å›ºå®šä¸€ä¸ªframeï¼Œç¡®å®šä»–ä¸ä¼šè¢«ç§»é™¤
      *
-     * @param frameId ¹Ì¶¨frameµÄid
+     * @param frameId å›ºå®šframeçš„id
      */
     void pin(int frameId);
 
 
     /**
-     * ½â³ı¹Ì¶¨frame£¬Ê¹Ëû¿ÉÒÔ±»ÒÆ³ı
+     * è§£é™¤å›ºå®šframeï¼Œä½¿ä»–å¯ä»¥è¢«ç§»é™¤
      *
-     * @param frameId ½â³ı¹Ì¶¨frameµÄid
+     * @param frameId è§£é™¤å›ºå®šframeçš„id
      */
     void unpin(int frameId);
 
 
     /**
-     * ¿ÉÒÔÌæ»»frameµÄÊıÁ¿
+     * å¯ä»¥æ›¿æ¢frameçš„æ•°é‡
      *
-     * @return ¿ÉÒÔÌæ»»frameµÄÊıÁ¿
+     * @return å¯ä»¥æ›¿æ¢frameçš„æ•°é‡
      */
     int size();
 
